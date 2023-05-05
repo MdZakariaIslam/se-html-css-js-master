@@ -1,0 +1,97 @@
+<div
+              class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white"
+            >
+              <ul
+                class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+                id="menu"
+              >
+                <li class="nav-item">
+                  <a href="/" class="nav-link align-middle px-0">
+                    <i class="fs-4 bi-house"></i>
+                    <span class="ms-1 d-none d-sm-inline">Home</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#submenu1"
+                    data-bs-toggle="collapse"
+                    class="nav-link px-0 align-middle"
+                  >
+                    <i class="fs-4 bi-speedometer2"></i>
+                    <span class="ms-1 d-none d-sm-inline">Patient</span>
+                      <span class="badge">↓</span>
+                    </span>
+                  </a>
+                  <ul
+                    class="collapse show nav flex-column ms-3"
+                    id="submenu1"
+                    data-bs-parent="#menu"
+                  >
+                    <li class="w-100">
+                      <a href="/add-user.html" class="nav-link px-0">
+                        <span class="d-none d-sm-inline">Add</span> Patient
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/view-user.html" class="nav-link px-0">
+                        <span class="d-none d-sm-inline">View </span> Patient
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a
+                    href="#submenu2"
+                    data-bs-toggle="collapse"
+                    class="nav-link px-0 align-middle"
+                  >
+                    <i class="fs-4 bi-bootstrap"></i>
+                    <span class="ms-1 d-none d-sm-inline">Report</span></a
+                  >
+                  <ul
+                    class="collapse nav flex-column ms-1"
+                    id="submenu2"
+                    data-bs-parent="#menu"
+                  >
+                    <li class="w-100">
+                      <a href="/add-report.html" class="nav-link px-0">
+                        <span class="d-none d-sm-inline">Add</span> Report</a
+                      >
+                    </li>
+                    <li>
+                      <a href="/view-report.html" class="nav-link px-0">
+                        <span class="d-none d-sm-inline">View</span> Report</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <hr />
+              <div class="dropdown pb-4">
+                <a
+                  href="#"
+                  class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                  id="dropdownUser1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="//20.127.2.107:8080/v1/files/default.png"
+                    alt="hugenerd"
+                    width="30"
+                    height="30"
+                    class="rounded-circle"
+                  />
+                  <span class="d-none d-sm-inline mx-1">Admin</span>
+                </a>
+                <ul
+                  class="dropdown-menu dropdown-menu-dark text-small shadow"
+                  aria-labelledby="dropdownUser1"
+                >
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+              </div>
+            </div>
