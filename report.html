@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="http://health.rahman-it.com/assets2/bs/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script
+      type="text/javascript"
+      src="assets2/bs/bootstrap.bundle.min.js"
+    ></script>
+  </head>
+  <body>
+    <div class="border container-fluid">
+      <div class="row mb-3">
+        <div class="row">
+          <div class="col-1">
+            <img
+              src="https://png.pngtree.com/template/20201023/ourmid/pngtree-fitness-logo-with-letter-tg-icon-idea-of-logo-design-image_427180.jpg"
+              alt=""
+              width="100px"
+            />
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="col">
+                <h3 class="text-center">Health Care</h3>
+                <h6 class="text-center">Dhaka, Bangladesh</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-1">
+            <img
+              id="qr"
+              src="https://bvir.us/qr.php?url=http://se.local/report.html?id="
+              alt=""
+              width="100px"
+            />
+          </div>
+        </div>
+      </div>
+      <div style="background-color: #6c5b5b5e" class="row">
+        <div class="d-flex justify-content-between">
+          <div class="">
+            <span class="fw-bold"
+              >Patient ID:<span id="Patient_ID"></span
+            ></span>
+          </div>
+          <div class="">
+            <span>Phone:<span id="Phone"></span></span>
+          </div>
+          <div class="">
+            <span>Date:<span id="Date"></span></span>
+          </div>
+        </div>
+      </div>
+      <div style="background-color: #6c5b5b2b" class="row">
+        <div class="col">
+          <span>Name:<span id="Name"></span></span>
+        </div>
+        <div class="col">
+          <span>Age:<span id="Age"></span></span>
+        </div>
+        <div class="col">
+          <span>Gender:<span id="gender"></span></span>
+        </div>
+      </div>
+
+      <div style="background-color: #6c5b5b5e" class="row">
+        <div class="col">
+          <span>Marital Status:<span id="Marital_Status"></span></span>
+        </div>
+        <div class="col">
+          <span>Past Treatment:<span id="Past_Treatment"></span></span>
+        </div>
+        <div class="col">
+          <span>Address:<span id="address"></span></span>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col">
+          <h5 class="text-center">Blood Test Report</h5>
+          <table class="table table-bordered" id="bloodTest">
+            <thead>
+              <tr>
+                <th scope="col">Test Name</th>
+                <th scope="col">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        <div class="col">
+          <h5 class="text-center">Serum Test Report</h5>
+          <table class="table table-bordered" id="serumTest">
+            <thead>
+              <tr>
+                <th scope="col">Test Name</th>
+                <th scope="col">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        // get url parameter
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var id = url.searchParams.get("id");
+        var url = "";
+
+        var qr = document.getElementById("qr");
+        $("#qr").attr("src", "http://bvir.us/qr.php?url=http://se.local/report.html?id=" + id);
+        if (id == null) {
+          url = "http://localhost:8080/v1/report/view";
+        } else {
+          url = "http://localhost:8080/v1/report/view/" + id;
+        }
+        // ajax call to get all users
+        $.ajax({
+          url: url,
+          type: "GET",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function (data) {
+
+            var startDate = new Date(data.report.patient.dob.split("T")[0]);
+
+            var age = calculateYears(startDate, endDate);
+
+            $("#Patient_ID").html(data.report.patient.id);
+            $("#Name").html(data.report.patient.full_name);
+            $("#Age").html(age);
+            $("#gender").html(data.report.patient.gender);
+            $("#Marital_Status").html(data.report.patient.marriage);
+            $("#Past_Treatment").html(data.report.patient.past_treatment);
+            $("#Phone").html(data.report.patient.phone);
+            $("#Date").html(data.report.createdAt.split("T")[0]);
+            $("#address").html(data.report.patient.address);
+
+            var bloodReport = data.report.bloodReport;
+            var serumReport = data.report.serumReport;
+
+            console.log(bloodReport);
+            console.log(serumReport);
+
+            // blood test report exract key as name and value as result
+            var bloodTest = Object.keys(bloodReport).map(function (key) {
+              return [String(key), bloodReport[key]];
+            });
+            
+            // serum test report exract key as name and value as result
+            var serumTest = Object.keys(serumReport).map(function (key) {
+              return [String(key), serumReport[key]];
+            });
+
+            // blood test report table
+            var bloodTestTable = $("#bloodTest tbody");
+            // serum test report table
+            var serumTestTable = $("#serumTest tbody");
+
+            // blood test report table row
+            var bloodTestRow = "";
+
+            // serum test report table row
+            var serumTestRow = "";
+
+            for(i=0; i<bloodTest.length; i++){
+              bloodTestRow += "<tr><td>"+bloodTest[i][0]+"</td><td>"+bloodTest[i][1]+"</td></tr>";
+            }
+
+            for(i=0; i<serumTest.length; i++){
+              serumTestRow += "<tr><td>"+serumTest[i][0]+"</td><td>"+serumTest[i][1]+"</td></tr>";
+            }
+
+            bloodTestTable.append(bloodTestRow);
+            serumTestTable.append(serumTestRow);
+          },
+          error: function (xhr, status, error) {
+            // make the xhr.responseText a json object
+            var err = JSON.parse(xhr.responseText);
+            // alert the error message
+            alert(err.message);
+          },
+        });
+      });
+      var endDate = new Date();
+
+      function calculateYears(startDate, endDate) {
+        var startYear = startDate.getFullYear();
+        var endYear = endDate.getFullYear();
+
+        var years = endYear - startYear;
+
+        // Check if the end date has not reached the anniversary of the start date
+        if (
+          endDate.getMonth() < startDate.getMonth() ||
+          (endDate.getMonth() === startDate.getMonth() &&
+            endDate.getDate() < startDate.getDate())
+        ) {
+          years--;
+        }
+
+        return years;
+      }
+    </script>
+  </body>
+</html>

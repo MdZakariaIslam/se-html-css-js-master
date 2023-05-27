@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <title>User</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Medical Report</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <ul
+            class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+            style="--bs-scroll-height: 100px"
+          ></ul>
+          <form class="d-flex">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <section class="vh-100">
+      <div class="container-fluid h-custom">
+        <div class="row d-flex" style="">
+          <div
+            class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark"
+            id="sidebar"
+          >
+            <!-- add html by jquery -->
+          </div>
+          <div class="col-md-9 col-lg-9 col-xl-10 my-5">
+            <h1 class="h2">Add Report</h1>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="col-md-6">
+                    <label class="form-label mt-3">Patient ID</label>
+                    <input
+                      class="form-control"
+                      name="patient_id"
+                      type="text"
+                      onBlur="checkAvailability()"
+                      id="patient_id"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <span>&nbsp;</span><br />
+                  <span class="glyphicon glyphicon-user" id="name"></span><br />
+                  <span class="glyphicon glyphicon-earphone" id="phone"></span>
+                  <br />
+                  <span class="glyphicon glyphicon-calendar" id="age"></span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <form id="blood">
+                    <h1 class="h2">Blood Test</h1>
+                    <label class="form-label mt-3">WBCs (billion/L)</label>
+                    <input class="form-control" name="WBCs (billion/L)" type="text" />
+
+                    <label class="form-label mt-3">Neutrophils (%)</label>
+                    <input
+                      class="form-control"
+                      name="Neutrophils (%)"
+                      type="text"
+                    />
+
+                    <label class="form-label mt-3">Lymphocytes (%)</label>
+                    <input
+                      class="form-control"
+                      name="Lymphocytes (%)"
+                      type="text"
+                    />
+
+                    <label class="form-label mt-3">Monocytes (%)</label>
+                    <input class="form-control" name="Monocytes (%)" type="text" />
+
+                    <label class="form-label mt-3">Eosinophils (%)</label>
+                    <input
+                      class="form-control"
+                      name="Eosinophils (%)"
+                      type="text"
+                    />
+
+                    <label class="form-label mt-3">Basophils (%)</label>
+                    <input class="form-control" name="Basophils (%)" type="text" />
+
+                    <label class="form-label mt-3">RBCs (trillion/L)</label>
+                    <input class="form-control" name="RBCs (trillion/L)" type="text" />
+
+                    <label class="form-label mt-3">Hb (g/dL)</label>
+                    <input class="form-control" name="Hb (g/dL)" type="text" />
+
+                    <label class="form-label mt-3">Hematocrit (%)</label>
+                    <input class="form-control" name="Hematocrit (%)" type="text" />
+
+                    <label class="form-label mt-3">Platelets (billion/L)</label>
+                    <input class="form-control" name="Platelets (billion/L)" type="text" />
+                  </form>
+                </div>
+                <div class="col-md-6">
+                  <form id="serum">
+                    <h1 class="h2">Serum Test</h1>
+                    <label class="form-label mt-3">Sodium (meq/l)</label>
+                    <input class="form-control" name="Sodium (meq/l)" type="text" />
+
+                    <label class="form-label mt-3">Potassium (meq/l)</label>
+                    <input class="form-control" name="Potassium (meq/l)" type="text" />
+
+                    <label class="form-label mt-3">Chloride (meq/l)</label>
+                    <input class="form-control" name="Chloride (meq/l)" type="text" />
+
+                    <label class="form-label mt-3">Bicarbonate (mmol/l)</label>
+                    <input
+                      class="form-control"
+                      name="Bicarbonate (meq/l)"
+                      type="text"
+                    />
+
+                    <label class="form-label mt-3">Glucose (mg/dl)</label>
+                    <input class="form-control" name="Glucose (mg/dl)" type="text" />
+
+                    <label class="form-label mt-3">Urea (mg/dl)</label>
+                    <input class="form-control" name="Urea (mg/dl)" type="text" />
+
+                    <label class="form-label mt-3">Creatinine (mg/dl)</label>
+                    <input class="form-control" name="Creatinine (mg/dl)" type="text" />
+
+                    <label class="form-label mt-3"
+                      >GFR estimation (mg/dl)</label
+                    >
+                    <input
+                      class="form-control"
+                      name="GFR estimation(mg/dl)"
+                      type="text"
+                    />
+
+                    <label class="form-label mt-3"
+                      >Total bilirubin (mg/dl)</label
+                    >
+                    <input
+                      class="form-control"
+                      name="Total bilirubin (mg/dl)"
+                      type="text"
+                    />
+
+                    <label class="form-label mt-3">Albumin (g/dl)</label>
+                    <input class="form-control" name="Albumin (g/dl)" type="text" />
+
+                    <label class="form-label mt-3"
+                      >Aspartate aminotransferase (U/I)</label
+                    >
+                    <input
+                      class="form-control"
+                      name="Aspartate aminotransferase (U/I)"
+                      type="text"
+                    />
+
+                    <label class="form-label mt-3"
+                      >Alanine aminotransferase (U/I)</label
+                    >
+                    <input
+                      class="form-control"
+                      name="Alanineaminotransferase (U/I)"
+                      type="text"
+                    />
+
+                    <label class="form-label mt-3">Troponin (ng/ml)</label>
+                    <input class="form-control" name="Troponin (ng/ml)" type="text" />
+                  </form>
+                </div>
+              </div>
+              <button class="btn btn-primary mt-3" id="submit" type="submit">
+                Submit
+              </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary"
+      >
+        <!-- Copyright -->
+        <div class="text-white mb-3 mb-md-0">
+          Copyright © 2023. All rights reserved.
+        </div>
+        <!-- Copyright -->
+      </div>
+    </section>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script src="assets/js/report-add.js"></script>
+  </body>
+</html>
